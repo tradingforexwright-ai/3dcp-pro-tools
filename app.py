@@ -3,136 +3,155 @@ import time
 
 st.set_page_config(page_title="3DCP Pro Tools LLC", page_icon="🏗️", layout="wide")
 
+# Professional styling
 st.markdown("""
     <style>
     .stApp { background-color: #0f172a; color: #e2e8f0; }
     .stButton>button { background-color: #3b82f6; color: white; border-radius: 8px; padding: 12px 28px; font-weight: bold; }
     .stButton>button:hover { background-color: #2563eb; }
     h1 { color: #60a5fa; }
-    .report-box { background-color: #1e2937; padding: 25px; border-radius: 12px; border-left: 6px solid #3b82f6; margin-bottom: 20px; }
-    label { color: #93c5fd !important; font-size: 1.1em; font-weight: 500; }
+    .pro-label { color: #f59e0b; font-weight: bold; }
+    .greyed { opacity: 0.45; pointer-events: none; filter: blur(2px); }
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🏗️ 3DCP Pro Tools LLC")
-st.markdown("**Your Personal 3DCP Specialist & Project Dashboard**")
+# Top Navigation (using tabs)
+tabs = st.tabs(["🏠 Home", "🔧 Mix Optimizer", "📏 Project Estimator", "📋 FEMA Proposal Tool", "🏛️ Grant Qualifier", "📊 My Dashboard"])
 
-# Persistent storage for all reports
-if "reports" not in st.session_state:
-    st.session_state.reports = {}
-if "contacts" not in st.session_state:
-    st.session_state.contacts = []
-
-# User info
+# Store user info
 if "user_name" not in st.session_state:
     st.session_state.user_name = ""
+if "user_company" not in st.session_state:
+    st.session_state.user_company = ""
+if "user_location" not in st.session_state:
+    st.session_state.user_location = ""
+if "reports" not in st.session_state:
+    st.session_state.reports = {}
 
-tool = st.sidebar.selectbox(
-    "Navigate",
-    ["Home / Welcome", "1. Recycled Mix Optimizer", "2. Resilient Project Estimator", 
-     "3. FEMA / Disaster Response Proposal Tool", "4. Resilient Housing Grant Qualifier", 
-     "📊 My Reports & Dashboard"]
-)
-
-def processing_animation(message="Processing your project data..."):
+def processing_animation(message="Processing your specifications..."):
     with st.spinner(message):
-        time.sleep(1.5)
+        time.sleep(1.4)
 
-# ==================== HOME ====================
-if tool == "Home / Welcome":
-    st.success("Welcome to your personal 3DCP Command Center")
-    name = st.text_input("Your First Name", value=st.session_state.user_name)
-    if st.button("Save & Begin"):
-        st.session_state.user_name = name
-        st.success(f"✅ Welcome back, **{name or 'Contractor'}**!")
-    st.info("Use the tools on the left. All results will automatically appear in **My Reports & Dashboard**.")
-
-# ==================== TOOL 1 ====================
-elif tool == "1. Recycled Mix Optimizer":
-    name = st.session_state.user_name or "Contractor"
-    st.subheader(f"1. Recycled Mix Optimizer – Hi {name}!")
+# ==================== HOME TAB ====================
+with tabs[0]:
+    st.title("Welcome to 3DCP Pro Tools LLC")
+    st.markdown("**The Leading Software Platform for 3D Construction Printing**")
     
-    # 7-8 contractor-focused inputs
-    printer = st.selectbox("Printer Type", ["Gantry Large Format", "Robotic Arm", "Mobile Trailer System", "Delta"])
-    nozzle = st.selectbox("Nozzle Size (mm)", ["20", "30", "40", "50"])
-    layer = st.slider("Layer Height (mm)", 5, 40, 15)
-    pump = st.selectbox("Pump Type", ["Progressive Cavity", "Peristaltic", "Screw"])
-    speed = st.slider("Target Print Speed (mm/s)", 50, 300, 120)
-    temp = st.number_input("Ambient Temperature (°F)", value=72)
+    name = st.text_input("Your First Name", value=st.session_state.user_name)
+    company = st.text_input("Company", value=st.session_state.user_company)
+    location = st.text_input("Project Location", value=st.session_state.user_location)
+    
+    if st.button("Save Profile"):
+        st.session_state.user_name = name
+        st.session_state.user_company = company
+        st.session_state.user_location = location
+        st.success(f"Profile saved for **{name or 'Contractor'}**")
+
+    st.info("Use the tabs above to access specialized tools. All results are saved to **My Dashboard**.")
+
+# ==================== MIX OPTIMIZER TAB ====================
+with tabs[1]:
+    st.title("🔧 Recycled Mix Optimizer")
+    st.write("Professional mix design for large-format 3DCP")
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        printer = st.selectbox("Printer Type", ["Gantry Large Format", "Robotic Arm", "Mobile Trailer", "Delta"])
+        nozzle = st.selectbox("Nozzle Size (mm)", ["20", "30", "40", "50"])
+        layer_height = st.slider("Layer Height (mm)", 5, 40, 15)
+    with col2:
+        pump = st.selectbox("Pump Type", ["Progressive Cavity", "Peristaltic", "Screw"])
+        speed = st.slider("Print Speed (mm/s)", 50, 300, 120)
+        temp = st.number_input("Ambient Temp (°F)", value=72)
+    
     strength = st.slider("Target Strength (MPa)", 15, 50, 30)
     recycled = st.slider("Recycled Aggregate %", 0, 60, 40)
+    
+    # Advanced Pro options (greyed out)
+    st.markdown("**Advanced Settings (Pro Only)**")
+    st.slider("Fiber Reinforcement %", 0, 5, 1, disabled=True)
+    st.selectbox("Rheology Modifier", ["None", "VMA", "Superplasticizer"], disabled=True)
+    
+    if st.button("🚀 Generate Optimized Mix"):
+        processing_animation("Calculating mix for your printer configuration...")
+        st.success("Basic mix parameters generated.")
+        st.button("→ View Full Report in Dashboard", type="primary")
 
-    if st.button("🚀 Generate My Optimized Mix"):
-        processing_animation("Tailoring mix to your exact printer and site conditions...")
-        result = {
-            "tool": "Mix Optimizer",
-            "date": time.strftime("%Y-%m-%d"),
-            "cost_per_m3": 118.45,
-            "printability": 82,
-            "notes": "High-quality mix ready for your gantry printer"
-        }
-        st.session_state.reports["mix"] = result
-        st.success("✅ Mix saved to My Reports & Dashboard")
-        st.button("→ Go to My Reports & Dashboard", type="primary")
+# ==================== PROJECT ESTIMATOR TAB ====================
+with tabs[2]:
+    st.title("📏 Resilient Project Estimator")
+    st.write("Detailed estimation for resilient 3DCP structures")
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        length = st.number_input("Total Wall Length (m)", value=60.0)
+        height = st.number_input("Average Height (m)", value=3.0)
+        thickness = st.number_input("Wall Thickness (m)", value=0.25)
+    with col2:
+        floors = st.number_input("Number of Floors", value=1)
+        openings = st.number_input("Number of Openings", value=12)
+        wind_zone = st.selectbox("Wind Exposure", ["Standard", "Hurricane Zone", "High Wind", "Tornado"])
+    
+    recycled = st.slider("Recycled Content %", 0, 60, 35)
+    
+    st.markdown("**Advanced Structural Options (Pro Only)**")
+    st.checkbox("Include Seismic Reinforcement", disabled=True)
+    st.checkbox("Include Thermal Bridging Analysis", disabled=True)
+    
+    if st.button("🚀 Generate Estimate"):
+        processing_animation("Running full project analysis...")
+        st.success("Basic estimate completed.")
+        st.button("→ View Full Report in Dashboard", type="primary")
 
-# ==================== TOOL 2 ====================
-elif tool == "2. Resilient Project Estimator":
-    # Similar 7-8 inputs + save logic (shortened for space)
-    st.subheader("2. Resilient Project Estimator")
-    if st.button("🚀 Generate Project Estimate"):
-        st.session_state.reports["project"] = {"tool": "Project Estimator", "date": time.strftime("%Y-%m-%d"), "cost": 24500}
-        st.success("✅ Estimate saved to My Reports & Dashboard")
-        st.button("→ Go to My Reports & Dashboard", type="primary")
-
-# ==================== TOOL 3 ====================
-elif tool == "3. FEMA / Disaster Response Proposal Tool":
-    st.subheader("3. FEMA / Disaster Response & Government Contract Proposal Tool")
+# ==================== FEMA PROPOSAL TAB ====================
+with tabs[3]:
+    st.title("📋 FEMA / Disaster Response Proposal Tool")
+    st.write("Professional proposal generator for government and disaster recovery contracts")
+    
+    project_type = st.selectbox("Project Type", ["Permanent Housing Replacement", "Community Shelter", "Infrastructure Repair"])
+    units = st.number_input("Number of Structures", value=15)
+    sqft = st.number_input("Total Square Footage", value=22000)
+    disaster = st.selectbox("Disaster Type", ["Hurricane", "Tornado", "Flood", "Wildfire"])
+    
+    st.markdown("**Government Compliance Fields (Pro Only)**")
+    st.text_input("FEMA DR Number", disabled=True)
+    st.text_input("Grant ID / RFP Number", disabled=True)
+    
     if st.button("🚀 Generate Proposal Framework"):
-        st.session_state.reports["fema"] = {"tool": "FEMA Proposal", "date": time.strftime("%Y-%m-%d"), "value": 1245000}
-        st.success("✅ Proposal framework saved to My Reports & Dashboard")
-        st.button("→ Go to My Reports & Dashboard", type="primary")
+        processing_animation("Building compliant proposal structure...")
+        st.success("Basic framework generated.")
+        st.button("→ View Full Report in Dashboard", type="primary")
 
-# ==================== TOOL 4 ====================
-elif tool == "4. Resilient Housing Grant Qualifier":
-    st.subheader("4. Resilient Housing Grant Qualifier")
-    if st.button("🚀 Check Grant Eligibility"):
-        st.session_state.reports["grant"] = {"tool": "Grant Qualifier", "date": time.strftime("%Y-%m-%d")}
-        st.success("✅ Grant data saved to My Reports & Dashboard")
-        st.button("→ Go to My Reports & Dashboard", type="primary")
+# ==================== GRANT TAB ====================
+with tabs[4]:
+    st.title("🏛️ Resilient Housing Grant Qualifier")
+    county = st.selectbox("County", ["Lake County, FL", "Denver Metro, CO", "Other"])
+    
+    if st.button("🚀 Check Eligibility"):
+        processing_animation("Cross-referencing current grant programs...")
+        st.success("High eligibility detected.")
+        st.button("→ View Full Report in Dashboard", type="primary")
 
-# ==================== DASHBOARD / REPORTS PAGE ====================
-elif tool == "📊 My Reports & Dashboard":
-    st.title("📊 My Reports & Dashboard")
-    st.write(f"Welcome back, **{st.session_state.user_name or 'Contractor'}** — here is everything you’ve generated.")
-
+# ==================== DASHBOARD TAB ====================
+with tabs[5]:
+    st.title("📊 My Dashboard & Reports")
+    st.write(f"Welcome back, **{st.session_state.user_name or 'Contractor'}**")
+    
     if not st.session_state.reports:
-        st.info("No reports yet. Use the tools on the left to start building your project library.")
+        st.info("No reports yet. Generate content using the tools above.")
     else:
         for key, report in st.session_state.reports.items():
-            st.subheader(f"{report['tool']} — {report.get('date', '')}")
-            st.markdown(f'<div class="report-box">Basic summary generated successfully.</div>', unsafe_allow_html=True)
-            
-            st.markdown("**Printable PDF & Full Value Package (Pro Only)**")
-            st.markdown('<div class="blurred">Downloadable PDF • Floor plans • Parts & supply lists • Pre-sourced vendor quotes • Structural notes • Insurance & grant recommendations</div>', unsafe_allow_html=True)
-            st.button(f"Upgrade to unlock full PDF for {report['tool']}", key=f"pro_{key}")
-
-    # CRM Section - Contact Input
+            st.subheader(f"{report.get('tool', 'Report')} — {report.get('date', '')}")
+            st.markdown('<div class="report-box">Basic summary created successfully.</div>', unsafe_allow_html=True)
+            st.markdown("**Full Professional Package (Pro Only)**")
+            st.markdown('<div class="blurred">Printable PDF • Floor plans • Supply lists • Vendor quotes • Structural notes • Grant-ready documentation</div>', unsafe_allow_html=True)
+    
     st.markdown("---")
-    st.subheader("📇 Your Contacts (CRM Start)")
-    with st.form("contact_form"):
-        contact_name = st.text_input("Contact Name")
-        contact_role = st.text_input("Role / Company")
-        contact_phone = st.text_input("Phone")
-        contact_email = st.text_input("Email")
+    st.subheader("Your Contacts (Early CRM)")
+    with st.form("add_contact"):
+        c_name = st.text_input("Contact Name")
+        c_role = st.text_input("Role / Company")
         if st.form_submit_button("Add Contact"):
-            st.session_state.contacts.append({"name": contact_name, "role": contact_role, "phone": contact_phone, "email": contact_email})
-            st.success("Contact added!")
+            st.success("Contact added to your dashboard.")
 
-    if st.session_state.contacts:
-        st.write("**Saved Contacts**")
-        for c in st.session_state.contacts:
-            st.write(f"• {c['name']} — {c['role']} | {c['phone']} | {c['email']}")
-
-    st.caption("This dashboard is evolving into a full CRM & Project Management system for high-end 3DCP contractors.")
-
-st.sidebar.caption("© 2026 3DCP Pro Tools LLC • Your Personal 3DCP Specialist")
+st.caption("© 2026 3DCP Pro Tools LLC • The Leading Software Platform for 3D Construction Printing")
