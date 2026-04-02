@@ -5,21 +5,49 @@ st.set_page_config(page_title="3DCP Pro Tools LLC", page_icon="🏗️", layout=
 
 st.markdown("""
     <style>
-    .stApp { background-color: #0f172a; color: #e2e8f0; }
-    .stButton>button { background-color: #3b82f6; color: white; border-radius: 8px; padding: 12px 28px; font-weight: bold; }
-    .stButton>button:hover { background-color: #2563eb; }
-    h1 { color: #60a5fa; font-size: 3.8em !important; font-weight: 700 !important; }
-    .stTabs [data-baseweb="tab-list"] button {
-        font-size: 1.65em !important;
-        font-weight: 700 !important;
-        padding: 22px 32px !important;
+    .stApp { 
+        background-color: #0f172a; 
+        color: #e2e8f0; 
     }
-    .sub-header { font-size: 1.4em; font-weight: 600; color: #93c5fd; margin: 25px 0 12px 0; }
+    .stButton>button { 
+        background-color: #3b82f6; 
+        color: white; 
+        border-radius: 8px; 
+        padding: 12px 28px; 
+        font-weight: bold; 
+    }
+    .stButton>button:hover { background-color: #2563eb; }
+
+    /* Extra large main title */
+    h1 { 
+        color: #60a5fa; 
+        font-size: 4.2em !important; 
+        font-weight: 700 !important;
+        margin-bottom: 12px !important;
+    }
+
+    /* Significantly larger and bolder top navigation */
+    .stTabs [data-baseweb="tab-list"] button {
+        font-size: 1.85em !important;      /* Even larger font */
+        font-weight: 800 !important;       /* Heavier weight */
+        padding: 24px 36px !important;     /* More padding */
+        margin: 0 10px !important;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .sub-header { 
+        font-size: 1.45em; 
+        font-weight: 600; 
+        color: #93c5fd; 
+        margin: 25px 0 12px 0; 
+    }
     </style>
 """, unsafe_allow_html=True)
 
 st.title("3DCP Pro Tools LLC")
 
+# Large Top Navigation
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
     "🏠 Home", 
     "🔧 Mix Optimizer", 
