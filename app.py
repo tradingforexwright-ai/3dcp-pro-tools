@@ -9,16 +9,16 @@ st.markdown("""
     .stButton>button { background-color: #3b82f6; color: white; border-radius: 8px; padding: 12px 28px; font-weight: bold; }
     .stButton>button:hover { background-color: #2563eb; }
     
-    /* Very large title - main focus */
+    /* Title - Twice as large */
     h1 { 
         color: #60a5fa; 
-        font-size: 4.6em !important; 
+        font-size: 5.2em !important; 
         font-weight: 700 !important;
         margin-bottom: 12px !important;
         text-align: center;
     }
     
-    /* Large cursive line directly under title - 2x larger */
+    /* Large cursive line directly under title */
     .cursive {
         font-family: 'Georgia', serif;
         font-style: italic;
@@ -30,12 +30,13 @@ st.markdown("""
         opacity: 0.9;
     }
     
-    /* Large bold top navigation */
+    /* Top navigation - Twice as large */
     .stTabs [data-baseweb="tab-list"] button {
-        font-size: 1.75em !important;
+        font-size: 2.1em !important;
         font-weight: 700 !important;
-        padding: 22px 34px !important;
-        margin: 0 8px !important;
+        padding: 26px 40px !important;
+        margin: 0 12px !important;
+        letter-spacing: 1px;
     }
     </style>
 """, unsafe_allow_html=True)
