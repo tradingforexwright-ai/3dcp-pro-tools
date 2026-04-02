@@ -9,38 +9,40 @@ st.markdown("""
     .stButton>button { background-color: #3b82f6; color: white; border-radius: 8px; padding: 12px 28px; font-weight: bold; }
     .stButton>button:hover { background-color: #2563eb; }
     
-    /* Extra large title */
+    /* Extra large title - main focus */
     h1 { 
         color: #60a5fa; 
-        font-size: 4.2em !important; 
+        font-size: 4.4em !important; 
         font-weight: 700 !important;
-        margin-bottom: 8px !important;
+        margin-bottom: 12px !important;
+        text-align: center;
     }
     
-    /* Large cursive sentence directly under title */
+    /* Very large cursive line - 2x larger, centered */
     .cursive {
         font-family: 'Georgia', serif;
         font-style: italic;
-        font-size: 1.65em;
+        font-size: 2.8em !important;
         color: #94a3b8;
         text-align: center;
-        margin: 0 0 30px 0;
-        letter-spacing: 1.2px;
-        opacity: 0.9;
+        margin: 0 0 35px 0;
+        letter-spacing: 1.5px;
+        opacity: 0.92;
     }
     
-    /* Larger top navigation */
+    /* Large bold top navigation */
     .stTabs [data-baseweb="tab-list"] button {
-        font-size: 1.65em !important;
+        font-size: 1.75em !important;
         font-weight: 700 !important;
-        padding: 20px 32px !important;
+        padding: 22px 34px !important;
+        margin: 0 8px !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
 st.title("3DCP Pro Tools LLC")
 
-# Cursive line directly under the title
+# Large cursive line directly under the title
 st.markdown('<p class="cursive">Empowering the future of resilient 3D construction • One precise layer at a time</p>', unsafe_allow_html=True)
 
 # Top Navigation
