@@ -9,10 +9,10 @@ st.markdown("""
     .stButton>button { background-color: #3b82f6; color: white; border-radius: 8px; padding: 12px 28px; font-weight: bold; }
     .stButton>button:hover { background-color: #2563eb; }
     
-    /* Title - Twice as large */
+    /* Very large title */
     h1 { 
         color: #60a5fa; 
-        font-size: 5.2em !important; 
+        font-size: 4.6em !important; 
         font-weight: 700 !important;
         margin-bottom: 12px !important;
         text-align: center;
@@ -30,13 +30,13 @@ st.markdown("""
         opacity: 0.9;
     }
     
-    /* Top navigation - Twice as large */
+    /* Top navigation - SIGNIFICANTLY LARGER */
     .stTabs [data-baseweb="tab-list"] button {
-        font-size: 2.1em !important;
-        font-weight: 700 !important;
-        padding: 26px 40px !important;
+        font-size: 2.25em !important;   /* Twice as large as previous */
+        font-weight: 800 !important;
+        padding: 28px 42px !important;
         margin: 0 12px !important;
-        letter-spacing: 1px;
+        letter-spacing: 1.2px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -46,7 +46,7 @@ st.title("3DCP Pro Tools LLC")
 # Large cursive line directly under the title
 st.markdown('<p class="cursive">Empowering the future of resilient 3D construction • One precise layer at a time</p>', unsafe_allow_html=True)
 
-# Top Navigation
+# Top Navigation - Very Large
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
     "🏠 Home", 
     "🔧 Mix Optimizer", 
