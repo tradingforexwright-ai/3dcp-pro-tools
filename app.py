@@ -3,33 +3,58 @@ import time
 
 st.set_page_config(page_title="3DCP Pro Tools LLC", page_icon="🏗️", layout="wide")
 
-# Stronger professional styling + larger top tabs
 st.markdown("""
     <style>
-    .stApp { background-color: #0f172a; color: #e2e8f0; }
-    .stButton>button { background-color: #3b82f6; color: white; border-radius: 8px; padding: 12px 28px; font-weight: bold; }
-    .stButton>button:hover { background-color: #2563eb; }
-    h1 { color: #60a5fa; font-size: 2.4em; }
-    .stTabs [data-baseweb="tab-list"] button {
-        font-size: 1.25em !important;
-        font-weight: 700 !important;
-        padding: 16px 24px !important;
-        margin: 0 4px !important;
+    .stApp { 
+        background-color: #0f172a; 
+        color: #e2e8f0; 
     }
-    .helper { background-color: #1e2937; padding: 18px; border-radius: 12px; border-left: 6px solid #60a5fa; margin: 20px 0; }
-    .pointer { font-size: 1.8em; animation: bounce 2s infinite; }
-    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .stButton>button { 
+        background-color: #3b82f6; 
+        color: white; 
+        border-radius: 8px; 
+        padding: 12px 28px; 
+        font-weight: bold; 
+    }
+    .stButton>button:hover { background-color: #2563eb; }
+
+    /* Extra large title */
+    h1 { 
+        color: #60a5fa; 
+        font-size: 3.8em !important; 
+        font-weight: 700 !important;
+        margin-bottom: 10px !important;
+    }
+
+    /* Much larger top navigation */
+    .stTabs [data-baseweb="tab-list"] button {
+        font-size: 1.45em !important;
+        font-weight: 700 !important;
+        padding: 18px 28px !important;
+        margin: 0 8px !important;
+        letter-spacing: 0.5px;
+    }
+
+    /* Creative cursive lattice sentence */
+    .lattice {
+        font-family: 'Georgia', serif;
+        font-size: 1.35em;
+        font-style: italic;
+        color: #94a3b8;
+        text-align: center;
+        margin: 8px 0 25px 0;
+        letter-spacing: 1.5px;
+        opacity: 0.85;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🏗️ 3DCP Pro Tools LLC")
-st.markdown("**The Leading Software Platform for 3D Construction Printing**")
+st.title("3DCP Pro Tools LLC")
 
-# User info
-if "user_name" not in st.session_state:
-    st.session_state.user_name = ""
+# Creative lattice sentence under the title
+st.markdown('<p class="lattice">Empowering the future of resilient 3D construction • One precise layer at a time</p>', unsafe_allow_html=True)
 
-# Top Navigation - Bolder and Larger
+# Top Navigation - Very Bold & Large
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
     "🏠 Home", 
     "🔧 Mix Optimizer", 
@@ -39,31 +64,45 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
     "📊 My Dashboard"
 ])
 
+# User info persistence
+if "user_name" not in st.session_state:
+    st.session_state.user_name = ""
+
 def processing_animation(message="Analyzing your project data..."):
     with st.spinner(message):
         time.sleep(1.4)
 
+def show_cta():
+    st.markdown("---")
+    st.subheader("Unlock Full Professional Reports & PDFs")
+    col1, col2 = st.columns(2)
+    with col1:
+        email = st.text_input("Your Email Address", placeholder="you@company.com")
+        if st.button("📧 Request Full Pro Report"):
+            if email:
+                st.success(f"✅ Thank you! Your complete report package has been requested.")
+    with col2:
+        st.markdown("**Instant Pro Upgrade**")
+        st.markdown("[**Pro Lifetime Access – $99**](https://gumroad.com/l/YOUR-LIFETIME-LINK)")
+        st.markdown("[**Pro Monthly – $29**](https://gumroad.com/l/YOUR-MONTHLY-LINK)")
+
 # ==================== HOME TAB ====================
 with tab1:
     st.title("Welcome to 3DCP Pro Tools LLC")
-    st.write("We treat every contractor like a VIP client.")
+    st.write("The premier software platform for professional 3D construction printing contractors.")
     
-    name = st.text_input("Your First Name", value=st.session_state.user_name, key="name_input")
+    name = st.text_input("Your First Name", value=st.session_state.user_name)
     
     if st.button("Save My Name & Get Started"):
         st.session_state.user_name = name
         st.success(f"✅ Welcome, **{name or 'Contractor'}**!")
-        
-        # Friendly helper message with pointer
-        st.markdown("""
-            <div class="helper">
-                👋 Hi <strong>{}</strong>! I'm your personal 3DCP specialist.<br>
-                <span class="pointer">👉</span> Use the bold tabs above to explore the tools. 
+        st.markdown(f"""
+            <div style="background-color:#1e2937; padding:20px; border-radius:12px; margin:20px 0;">
+                👋 Hi <strong>{name or 'there'}</strong>! I'm your personal 3DCP specialist.<br>
+                <span style="font-size:1.8em;">👉</span> Use the bold tabs above to explore the tools. 
                 Everything you create will be saved in <strong>My Dashboard</strong>.
             </div>
-        """.format(name or "there"), unsafe_allow_html=True)
-    
-    st.info("All tools are designed for professional 3DCP contractors. Pro upgrades unlock full reports and PDFs.")
+        """, unsafe_allow_html=True)
 
 # ==================== MIX OPTIMIZER TAB ====================
 with tab2:
@@ -88,15 +127,15 @@ with tab2:
     st.selectbox("Rheology Modifier", ["None", "VMA", "Superplasticizer"], disabled=True)
     
     if st.button("🚀 Generate Optimized Mix"):
-        processing_animation("Tailoring mix to your printer and site...")
+        processing_animation("Tailoring mix to your printer...")
         st.success("Basic mix recommendation generated.")
         st.button("→ View in My Dashboard", type="primary")
 
-# (The other tabs follow the same pattern — shortened here for space, but fully functional)
+# (Other tabs follow the same pattern - shortened here for brevity)
 
 with tab6:
     st.title("📊 My Dashboard & Reports")
     st.write(f"Welcome back, **{st.session_state.user_name or 'Contractor'}**")
-    st.info("Your generated reports and project data will appear here.")
+    st.info("Your generated reports will appear here once you use the tools above.")
 
 st.caption("© 2026 3DCP Pro Tools LLC • The Leading Software Platform for 3D Construction Printing")
