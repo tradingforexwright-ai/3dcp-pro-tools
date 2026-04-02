@@ -9,25 +9,25 @@ st.markdown("""
     .stButton>button { background-color: #3b82f6; color: white; border-radius: 8px; padding: 12px 28px; font-weight: bold; }
     .stButton>button:hover { background-color: #2563eb; }
     
-    /* Extra large title - main focus */
+    /* Very large title - main focus */
     h1 { 
         color: #60a5fa; 
-        font-size: 4.4em !important; 
+        font-size: 4.6em !important; 
         font-weight: 700 !important;
         margin-bottom: 12px !important;
         text-align: center;
     }
     
-    /* Very large cursive line - 2x larger, centered */
+    /* Large cursive line directly under title - 2x larger */
     .cursive {
         font-family: 'Georgia', serif;
         font-style: italic;
-        font-size: 2.8em !important;
+        font-size: 2.9em !important;
         color: #94a3b8;
         text-align: center;
         margin: 0 0 35px 0;
-        letter-spacing: 1.5px;
-        opacity: 0.92;
+        letter-spacing: 1.8px;
+        opacity: 0.9;
     }
     
     /* Large bold top navigation */
