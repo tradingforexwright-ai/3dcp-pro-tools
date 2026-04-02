@@ -8,166 +8,118 @@ st.markdown("""
     .stApp { background-color: #0f172a; color: #e2e8f0; }
     .stButton>button { background-color: #3b82f6; color: white; border-radius: 8px; padding: 12px 28px; font-weight: bold; }
     .stButton>button:hover { background-color: #2563eb; }
-    
-    /* Very large title */
-    h1 { 
-        color: #60a5fa; 
-        font-size: 4.6em !important; 
-        font-weight: 700 !important;
-        margin-bottom: 12px !important;
-        text-align: center;
-    }
-    
-    /* Large cursive line directly under title */
-    .cursive {
-        font-family: 'Georgia', serif;
-        font-style: italic;
-        font-size: 2.9em !important;
-        color: #94a3b8;
-        text-align: center;
-        margin: 0 0 35px 0;
-        letter-spacing: 1.8px;
-        opacity: 0.9;
-    }
-    
-    /* Top navigation - SIGNIFICANTLY LARGER */
-    .stTabs [data-baseweb="tab-list"] button {
-        font-size: 2.25em !important;   /* Twice as large as previous */
-        font-weight: 800 !important;
-        padding: 28px 42px !important;
-        margin: 0 12px !important;
-        letter-spacing: 1.2px;
-    }
+    h1 { color: #60a5fa; }
+    .blurred { opacity: 0.3; filter: blur(5px); }
     </style>
 """, unsafe_allow_html=True)
 
-st.title("3DCP Pro Tools LLC")
+st.title("🏗️ 3DCP Pro Tools LLC")
+st.markdown("**Your Personal 3DCP Specialist**")
 
-# Large cursive line directly under the title
-st.markdown('<p class="cursive">Empowering the future of resilient 3D construction • One precise layer at a time</p>', unsafe_allow_html=True)
-
-# Top Navigation - Very Large
-tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-    "🏠 Home", 
-    "🔧 Mix Optimizer", 
-    "📏 Project Estimator", 
-    "📋 FEMA Proposal Tool", 
-    "🏛️ Grant Qualifier", 
-    "📊 My Dashboard"
-])
-
+# Store user info
 if "user_name" not in st.session_state:
     st.session_state.user_name = ""
+if "user_company" not in st.session_state:
+    st.session_state.user_company = ""
+if "user_location" not in st.session_state:
+    st.session_state.user_location = ""
 
-def processing_animation(message="Analyzing your project data..."):
+tool = st.sidebar.selectbox(
+    "Select Tool",
+    ["Home / Welcome", "1. Recycled Mix Optimizer", "2. Resilient Project Estimator", 
+     "3. FEMA Trailer Cost Comparator", "4. Resilient Housing Grant Qualifier"]
+)
+
+def processing_animation(message="Analyzing your specific project data..."):
     with st.spinner(message):
-        time.sleep(1.4)
+        time.sleep(1.5)
 
 def show_cta():
     st.markdown("---")
-    st.subheader("Unlock Full Professional Reports & PDFs")
+    st.subheader("Ready for the Full Professional Report + PDF?")
     col1, col2 = st.columns(2)
     with col1:
         email = st.text_input("Your Email Address", placeholder="you@company.com")
-        if st.button("📧 Request Full Pro Report"):
+        if st.button("📧 Unlock Full Pro Report"):
             if email:
-                st.success(f"✅ Thank you! Your complete personalized report has been requested.")
+                st.success(f"✅ Thank you, **{st.session_state.user_name or 'there'}**! Your personalized full report has been requested.")
     with col2:
-        st.markdown("**Instant Pro Upgrade**")
+        st.markdown("**Instant Upgrade on Gumroad**")
         st.markdown("[**Pro Lifetime Access – $99**](https://gumroad.com/l/YOUR-LIFETIME-LINK)")
         st.markdown("[**Pro Monthly – $29**](https://gumroad.com/l/YOUR-MONTHLY-LINK)")
+        st.caption("Instant access after purchase")
 
 # ==================== HOME ====================
-with tab1:
-    st.title("Welcome to 3DCP Pro Tools LLC")
-    st.write("The premier software platform for professional 3D construction printing contractors.")
+if tool == "Home / Welcome":
+    st.success("Welcome to your personal 3DCP toolkit")
+    st.write("We treat every contractor like a VIP client.")
     
     name = st.text_input("Your First Name", value=st.session_state.user_name)
-    if st.button("Save My Name"):
-        st.session_state.user_name = name
-        st.success(f"✅ Welcome, **{name or 'Contractor'}**!")
-
-# ==================== MIX OPTIMIZER ====================
-with tab2:
-    st.title("🔧 Recycled Mix Optimizer")
-    st.write("Advanced mix design for large-format 3DCP")
+    company = st.text_input("Company / Organization", value=st.session_state.user_company)
+    location = st.text_input("Project Location (City, State)", value=st.session_state.user_location)
     
-    col1, col2 = st.columns(2)
-    with col1:
-        printer = st.selectbox("Printer Type", ["Gantry Large Format", "Robotic Arm", "Mobile Trailer System", "Delta"])
-        nozzle = st.selectbox("Nozzle Size (mm)", ["20", "30", "40", "50"])
-        layer = st.slider("Layer Height (mm)", 5, 40, 15)
-    with col2:
-        pump = st.selectbox("Pump Type", ["Progressive Cavity", "Peristaltic", "Screw"])
-        speed = st.slider("Print Speed (mm/s)", 50, 300, 120)
-        temp = st.number_input("Ambient Temperature (°F)", value=72)
+    if st.button("Save My Information & Begin"):
+        st.session_state.user_name = name
+        st.session_state.user_company = company
+        st.session_state.user_location = location
+        st.success(f"✅ Welcome, **{name or 'there'}** from **{company or 'your team'}** in **{location or 'your area'}**!")
+    
+    if st.session_state.user_name:
+        st.write(f"Hi **{st.session_state.user_name}** — let's optimize your next project.")
+    show_cta()
+
+# ==================== TOOL 1 ====================
+elif tool == "1. Recycled Mix Optimizer":
+    name = st.session_state.user_name or "there"
+    st.subheader(f"1. Recycled Mix Optimizer – Hi {name}!")
+    st.write(f"Tailored for your **{st.session_state.user_company or 'project'}** in **{st.session_state.user_location or 'your area'}**.")
+    
+    printer_type = st.selectbox("Printer Type", ["Gantry (large format)", "Robotic Arm", "Delta", "Other"])
+    nozzle_size = st.selectbox("Nozzle Size (mm)", ["20", "30", "40", "50"])
+    layer_height = st.slider("Layer Height (mm)", 5, 30, 15)
+    pump_type = st.selectbox("Pump Type", ["Progressive Cavity", "Peristaltic", "Screw", "Other"])
     
     strength = st.slider("Target Strength (MPa)", 15, 50, 30)
     recycled = st.slider("Recycled Aggregate %", 0, 60, 40)
     
-    if st.button("🚀 Generate Optimized Mix"):
-        processing_animation("Calculating mix for your setup...")
-        st.success("Basic mix recommendation generated.")
-        st.button("→ View in My Dashboard", type="primary")
+    if st.button("🚀 Optimize My Mix"):
+        processing_animation("Searching material databases and tailoring to your printer setup...")
+        st.success("**Basic Free Result**")
+        st.metric("Estimated Cost per m³", "$118.45")
+        st.metric("Printability Score", "78/100")
+        
+        st.markdown("**Full Detailed Mixture Specification + PDF (Pro Only)**")
+        st.markdown('<div class="blurred">12-page custom recipe with exact additive percentages, pump pressure settings, layer speed recommendations, nozzle-specific adjustments, and downloadable PDF tailored to your exact printer and location.</div>', unsafe_allow_html=True)
+        st.markdown("[**Upgrade to Pro – Get Full PDF Now**](https://gumroad.com/l/YOUR-LIFETIME-LINK)")
+    
+    show_cta()
 
-# ==================== PROJECT ESTIMATOR ====================
-with tab3:
-    st.title("📏 Resilient Project Estimator")
-    st.write("Detailed estimation for resilient 3DCP structures")
+# ==================== TOOL 2 ====================
+elif tool == "2. Resilient Project Estimator":
+    name = st.session_state.user_name or "there"
+    st.subheader(f"2. Resilient Project Estimator – Hi {name}!")
     
-    col1, col2 = st.columns(2)
-    with col1:
-        length = st.number_input("Total Wall Length (m)", value=60.0)
-        height = st.number_input("Average Height (m)", value=3.0)
-        thickness = st.number_input("Wall Thickness (m)", value=0.25)
-    with col2:
-        floors = st.number_input("Number of Floors", value=1)
-        openings = st.number_input("Number of Openings", value=12)
-        wind_zone = st.selectbox("Wind Exposure", ["Standard", "Hurricane Zone", "High Wind", "Tornado"])
+    length = st.number_input("Total Wall Length (m)", value=50.0)
+    height = st.number_input("Wall Height (m)", value=3.0)
+    thickness = st.number_input("Wall Thickness (m)", value=0.2)
+    recycled = st.slider("Recycled %", 0, 60, 40)
     
-    recycled = st.slider("Recycled Content %", 0, 60, 35)
+    if st.button("🚀 Generate My Project Estimate"):
+        processing_animation("Running detailed structural and cost analysis for your project...")
+        st.success("**Basic Free Estimate**")
+        st.metric("Estimated Total Cost", "$18,240")
+        st.metric("Print Time", "38.4 hours")
+        
+        st.markdown("**Full Contractor Report + PDF (Pro Only)**")
+        st.markdown('<div class="blurred">8-page personalized PDF with insurance savings breakdown, structural reinforcement recommendations, full material list, and contractor-ready report.</div>', unsafe_allow_html=True)
+        st.markdown("[**Upgrade to Pro – Get Full PDF Now**](https://gumroad.com/l/YOUR-LIFETIME-LINK)")
     
-    if st.button("🚀 Generate Estimate"):
-        processing_animation("Running project analysis...")
-        st.success("Basic estimate generated.")
-        st.button("→ View in My Dashboard", type="primary")
+    show_cta()
 
-# ==================== FEMA PROPOSAL TOOL ====================
-with tab4:
-    st.title("📋 FEMA / Disaster Response Proposal Tool")
-    st.write("Professional proposal generator for government and disaster recovery contracts")
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        project_type = st.selectbox("Project Type", ["Permanent Housing Replacement", "Community Shelter", "Infrastructure Repair"])
-        units = st.number_input("Number of Structures", value=15)
-        sqft = st.number_input("Total Square Footage", value=22000)
-    with col2:
-        disaster = st.selectbox("Disaster Type", ["Hurricane", "Tornado", "Flood", "Wildfire"])
-        timeline = st.selectbox("Required Timeline", ["Emergency (30 days)", "Short-term (90 days)", "Standard"])
-        funding = st.selectbox("Primary Funding Source", ["FEMA", "HUD Rebuild", "State Grant"])
-    
-    if st.button("🚀 Generate Proposal Framework"):
-        processing_animation("Building proposal...")
-        st.success("Basic framework generated.")
-        st.button("→ View in My Dashboard", type="primary")
+# ==================== TOOL 3 & 4 ====================
+elif tool in ["3. FEMA Trailer Cost Comparator", "4. Resilient Housing Grant Qualifier"]:
+    st.subheader(f"{tool} – Hi {st.session_state.user_name or 'there'}!")
+    st.info("Basic calculation is free. The full contractor-ready report, PDF, and proposal template are available in Pro.")
+    show_cta()
 
-# ==================== GRANT QUALIFIER ====================
-with tab5:
-    st.title("🏛️ Resilient Housing Grant Qualifier")
-    st.write("Check eligibility for resilient housing programs")
-    
-    county = st.selectbox("County", ["Lake County, FL", "Denver Metro, CO", "Other"])
-    
-    if st.button("🚀 Check Grant Eligibility"):
-        processing_animation("Checking grant databases...")
-        st.success("Eligibility results generated.")
-        st.button("→ View in My Dashboard", type="primary")
-
-# ==================== DASHBOARD ====================
-with tab6:
-    st.title("📊 My Dashboard & Reports")
-    st.write(f"Welcome back, **{st.session_state.user_name or 'Contractor'}**")
-    st.info("Your generated reports will appear here once you use the tools above.")
-
-st.caption("© 2026 3DCP Pro Tools LLC • The Leading Software Platform for 3D Construction Printing")
+st.sidebar.caption("© 2026 3DCP Pro Tools LLC • Your Personal 3DCP Specialist")
